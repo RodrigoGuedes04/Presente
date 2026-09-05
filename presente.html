@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Presente para Giulia ❤️</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <div
+        class="coracoes"
+        id="coracoes"
+    ></div>
+
+
+    <main class="pagina-container">
+
+        <section class="card">
+
+            <a
+                href="index.html"
+                class="voltar"
+            >
+                ← Voltar para o início
+            </a>
+
+
+            <p class="mini-titulo">
+                uma coisa que nunca existiu antes
+            </p>
+
+
+            <h1>
+                Presente secreto 🎁
+            </h1>
+
+
+            <p class="descricao">
+Algumas coisas que sinto por você
+não consegui colocar apenas em palavras.
+
+Então tentei colocar em música.
+
+Coloque seus fones. ❤️
+            </p>
+
+
+            <div
+                class="player-secreto"
+                id="playerSecreto"
+            >
+
+
+                <div class="capa-container">
+
+                    <img
+                        src="assets/capa.PNG"
+                        class="capa-musica"
+                        alt="Capa da música feita para Giulia"
+                    >
+
+
+                    <span class="selo-presente">
+                        FEITO PARA GIULIA ❤️
+                    </span>
+
+                </div>
+
+
+                <div class="info-musica">
+
+                    <h2>
+                        Meu lugar favorito
+                    </h2>
+
+                    <p>
+                        Rodrigo Silva Guedes
+                    </p>
+
+                    <p class="feito-para">
+                        Uma música para
+                        Giulia Domingos de Oliveira
+                    </p>
+
+                </div>
+
+
+                <audio
+                    id="audioSecreto"
+                    preload="metadata"
+                >
+
+                    <source
+                        src="assets/Giulia.mp3"
+                        type="audio/mpeg"
+                    >
+
+                </audio>
+
+
+                <div class="progresso-container">
+
+                    <input
+                        id="barraProgresso"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="0"
+                    >
+
+
+                    <div class="tempos">
+
+                        <span id="tempoAtual">
+                            0:00
+                        </span>
+
+                        <span id="tempoTotal">
+                            0:00
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="controles-player">
+
+                    <button
+                        id="botaoPlay"
+                        class="botao-play"
+                        aria-label="Tocar música"
+                    >
+                        ▶
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/principal.js"></script>
+    <script src="js/presente.js"></script>
+
+</body>
+
+</html>
