@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#09071a"
+    >
+
+    <title>Nossa galáxia ✨</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap');
+
+        :root {
+            color-scheme: dark;
+            --fundo: #09071a;
+            --lavanda: #dfc7ff;
+            --rosa: #ffc9e6;
+            --rosa-forte: #f59cec;
+            --roxo: #8b4bd6;
+            --branco: #fff7fd;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+            background: var(--fundo);
+            color: #fff;
+            font-family: 'DM Sans', Arial, sans-serif;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .vinheta {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    transparent 30%,
+                    rgba(2, 2, 12, .58) 100%
+                );
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 26px 20px 22px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .topo {
+            text-shadow: 0 2px 20px #0009;
+        }
+
+        .topo small {
+            color: #e5d3ff;
+            letter-spacing: .30em;
+            font-size: .70rem;
+            text-transform: uppercase;
+        }
+
+        .topo h1 {
+            margin: 7px 0 0;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.8rem, 8vw, 5.2rem);
+            font-weight: 400;
+            color: #ffe4f3;
+            text-shadow:
+                0 0 30px rgba(245, 156, 236, .45);
+        }
+
+        .inicio {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: min(90vw, 470px);
+            transform: translate(-50%, -50%);
+            padding: 30px 24px;
+            border: 1px solid rgba(255, 255, 255, .22);
+            border-radius: 28px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(27, 19, 58, .88),
+                    rgba(18, 15, 44, .84)
+                );
+            backdrop-filter: blur(14px);
+            box-shadow:
+                0 20px 90px rgba(0, 0, 0, .52),
+                inset 0 1px 0 rgba(255, 255, 255, .08);
+            pointer-events: auto;
+            transition:
+                opacity .8s ease,
+                visibility .8s ease,
+                transform .8s ease;
+        }
+
+        .inicio.sumiu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -45%) scale(.97);
+        }
+
+        .inicio .simbolo {
+            margin-bottom: 10px;
+            font-size: 2.6rem;
+        }
+
+        .inicio h2 {
+            margin: 0 0 10px;
+            color: #fff3fb;
+            font-size: 1.25rem;
+        }
+
+        .inicio p {
+            margin: 0 0 22px;
+            color: #eadff9;
+            font-size: .98rem;
+            line-height: 1.7;
+        }
+
+        .botao {
+            cursor: pointer;
+            border: 1px solid rgba(249, 216, 255, .52);
+            border-radius: 999px;
+            padding: 13px 19px;
+            color: #fff;
+            font-weight: 600;
+            background:
+                linear-gradient(
+                    120deg,
+                    #8b4bd6,
+                    #d66da8
+                );
+            box-shadow:
+                0 5px 24px rgba(180, 90, 175, .34);
+            pointer-events: auto;
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                opacity .2s ease;
+        }
+
+        .botao:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 32px rgba(221, 132, 210, .45);
+        }
+
+        .botao:active {
+            transform: translateY(0);
+        }
+
+        .botao:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 4px;
+        }
+
+        .botao.secundario {
+            background: rgba(44, 32, 76, .86);
+            box-shadow: none;
+            border-color: rgba(255, 255, 255, .28);
+        }
+
+        .painel-musica {
+            width: min(92vw, 760px);
+            display: grid;
+            grid-template-columns: 104px 1fr;
+            gap: 18px;
+            align-items: center;
+            margin-top: auto;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, .20);
+            border-radius: 25px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(20, 15, 48, .88),
+                    rgba(43, 21, 61, .82)
+                );
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 16px 70px rgba(0, 0, 0, .45),
+                inset 0 1px 0 rgba(255, 255, 255, .07);
+            text-align: left;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(24px) scale(.98);
+            transition:
+                opacity 1s ease,
+                visibility 1s ease,
+                transform 1s ease;
+            pointer-events: none;
+        }
+
+        .painel-musica.apareceu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .capa-area {
+            position: relative;
+            width: 104px;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle at 35% 25%,
+                    #f2b3e5,
+                    #8051c6 46%,
+                    #21143d 100%
+                );
+            box-shadow:
+                0 8px 26px rgba(0, 0, 0, .36);
+        }
+
+        .capa-area img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .capa-fallback {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 2.2rem;
+            background:
+                radial-gradient(
+                    circle at 35% 25%,
+                    #f2b3e5,
+                    #8051c6 46%,
+                    #21143d 100%
+                );
+        }
+
+        .capa-area.tem-capa .capa-fallback {
+            display: none;
+        }
+
+        .conteudo-musica {
+            min-width: 0;
+        }
+
+        .rotulo {
+            display: inline-block;
+            margin-bottom: 5px;
+            color: #d8c2f9;
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .titulo-musica {
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #fff6fc;
+            font-size: clamp(1.25rem, 4vw, 1.72rem);
+        }
+
+        .artista-musica {
+            margin: 3px 0 10px;
+            color: #cebde3;
+            font-size: .88rem;
+        }
+
+        .frase-musica {
+            margin: 0;
+            color: #fff1fa;
+            font-size: clamp(.92rem, 2.4vw, 1.06rem);
+            line-height: 1.5;
+        }
+
+        .acoes-musica {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 9px;
+            padding-top: 2px;
+        }
+
+        .acoes-musica .botao {
+            padding: 9px 14px;
+            font-size: .79rem;
+        }
+
+        .status {
+            grid-column: 1 / -1;
+            min-height: 1.15rem;
+            margin: -2px 0 0;
+            color: #cdbddd;
+            font-size: .70rem;
+            text-align: center;
+        }
+
+        .assinatura-final {
+            margin: 8px 0 0;
+            color: #f7c4e4;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.45rem, 4vw, 2rem);
+            text-shadow:
+                0 3px 22px #000;
+            opacity: 0;
+            transform: translateY(10px);
+            transition:
+                opacity 1.2s ease,
+                transform 1.2s ease;
+        }
+
+        .assinatura-final.apareceu {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 620px) {
+
+            main {
+                padding:
+                    18px 14px
+                    calc(14px + env(safe-area-inset-bottom));
+            }
+
+            .topo small {
+                letter-spacing: .20em;
+                font-size: .61rem;
+            }
+
+            .topo h1 {
+                font-size: clamp(2.55rem, 13vw, 4rem);
+            }
+
+            .painel-musica {
+                grid-template-columns: 82px 1fr;
+                gap: 13px;
+                padding: 12px;
+                border-radius: 21px;
+            }
+
+            .capa-area {
+                width: 82px;
+                border-radius: 15px;
+            }
+
+            .frase-musica {
+                font-size: .86rem;
+            }
+
+            .acoes-musica {
+                gap: 7px;
+            }
+
+            .acoes-musica .botao {
+                padding: 8px 12px;
+                font-size: .73rem;
+            }
+        }
+
+        @media (max-height: 690px) {
+
+            main {
+                padding-top: 10px;
+                padding-bottom: 8px;
+            }
+
+            .topo h1 {
+                margin-top: 0;
+                font-size: 2.55rem;
+            }
+
+            .inicio {
+                padding: 18px;
+            }
+
+            .inicio .simbolo {
+                font-size: 2rem;
+            }
+
+            .painel-musica {
+                grid-template-columns: 76px 1fr;
+                gap: 11px;
+                padding: 10px;
+            }
+
+            .capa-area {
+                width: 76px;
+                border-radius: 13px;
+            }
+
+            .artista-musica {
+                margin-bottom: 6px;
+            }
+
+            .assinatura-final {
+                margin-top: 3px;
+                font-size: 1.35rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas
+        id="universo"
+        aria-label="Galáxia animada com uma constelação em forma de coração"
+    ></canvas>
+
+    <div class="vinheta"></div>
+
+    <main>
+
+        <header class="topo">
+
+            <small>
+                uma história escrita nas estrelas
+            </small>
+
+            <h1>
+                Nossa galáxia
+            </h1>
+
+        </header>
+
+
+        <section
+            class="inicio"
+            id="inicio"
+        >
+
+            <div class="simbolo">
+                🌙 ✨
+            </div>
+
+            <h2>
+                Uma música. Uma lembrança. Um sentimento.
+            </h2>
+
+            <p>
+                Cada estrela desta galáxia guarda
+                uma música que me faz pensar em você.
+                Toque abaixo e descubra uma delas.
+            </p>
+
+            <button
+                class="botao"
+                id="comecar"
+                type="button"
+            >
+                Criar nossa constelação ♡
+            </button>
+
+        </section>
+
+
+        <section
+            class="painel-musica"
+            id="painelMusica"
+            aria-live="polite"
+        >
+
+            <div
+                class="capa-area"
+                id="capaArea"
+            >
+
+                <img
+                    id="capaMusica"
+                    src=""
+                    alt=""
+                >
+
+                <div
+                    class="capa-fallback"
+                    aria-hidden="true"
+                >
+                    🎵
+                </div>
+
+            </div>
+
+
+            <div class="conteudo-musica">
+
+                <span class="rotulo">
+                    nossa constelação de hoje
+                </span>
+
+                <h2
+                    class="titulo-musica"
+                    id="tituloMusica"
+                >
+                    Música
+                </h2>
+
+                <p
+                    class="artista-musica"
+                    id="artistaMusica"
+                >
+                    Artista
+                </p>
+
+                <p
+                    class="frase-musica"
+                    id="fraseMusica"
+                >
+                    Minha frase para você aparecerá aqui.
+                </p>
+
+            </div>
+
+
+            <div class="acoes-musica">
+
+                <button
+                    class="botao secundario"
+                    id="alternarMusica"
+                    type="button"
+                    aria-pressed="false"
+                >
+                    ❚❚ Pausar música
+                </button>
+
+                <button
+                    class="botao"
+                    id="outraConstelacao"
+                    type="button"
+                >
+                    ✨ Outra constelação
+                </button>
+
+            </div>
+
+
+            <p
+                class="status"
+                id="status"
+                role="status"
+            ></p>
+
+        </section>
+
+
+        <p
+            class="assinatura-final"
+            id="assinaturaFinal"
+        >
+            Com todo o meu amor, para Giulia ♡
+        </p>
+
+    </main>
+
+
+    <audio
+        id="audio"
+        preload="metadata"
+    ></audio>
+
+
+    <script>
+
+        /*
+            ============================================================
+            SUAS MÚSICAS
+            ============================================================
+
+            A primeira música abaixo usa os arquivos que você já tem:
+
+            assets/Giulia.mp3
+            assets/capa.png
+
+            Quando quiser adicionar outras músicas, copie um bloco inteiro
+            e troque titulo, artista, audio, capa e frase.
+        */
+
+        const galaxiaMusical = [
+
+            {
+                titulo: "A Gente é Melhor Juntinho",
+                artista: "Kayno & Zant",
+
+                audio: "musica/A gente é melhor juntinho.mp3",
+
+                capa: "fotos/melhor juntinho.jpg",
+
+                frase:
+                    "Giulia, meu amor, você vem e vai, mas a verdade é que tudo fica mais bonito quando estamos juntinhos. ❤️"
+            },
+
+            {
+                titulo: "De Todos Os Loucos Do Mundo",
+                artista: "Clarice Falcão",
+
+                audio: "musica/de todos os loucos.mp3",
+
+                capa: "fotos/loucos.jpeg",
+
+                frase:
+                    "Giulia, será que a minha loucura completa a sua? Espero que sim, porque, de todos os loucos do mundo, foi com você que eu quis dividir as minhas loucuras. ❤️"
+            },
+             {
+                titulo: "I Wanna Be Yours",
+                artista: "Arctic Monkeys",
+
+                audio: "musica/i wanna.mp3",
+
+                capa: "fotos/i wanna.jpg",
+
+                frase:
+                    "Giulia, meu amor, eu só quero ser seu. Quero estar ao seu lado nos dias bons e ruins, ser seu abrigo quando o mundo pesar e seu motivo para sorrir. Porque, no fim, tudo o que eu mais quero é ser seu, assim como quero que você seja minha. ❤️"
+            },
+            {
+                titulo: "Valsa em Montreal",
+                artista: "Raffa Mogi",
+
+                audio: "musica/valsa montreal.mp3",
+
+                capa: "fotos/valsa.jpeg",
+
+                frase:
+                    "Amor, nosso sonho é morar no Canadá, então me promete que um dia vamos dançar uma valsa em Montreal?"
+            },
+            {
+                titulo: "Exagerado",
+                artista: "Cazuza",
+
+                audio: "musica/exagerado.mp3",
+
+                capa: "fotos/Exagerado.jpg",
+
+                frase:
+                    "Giulia, meu amor por você pode até ser exagerado, mas como eu poderia amar pouco alguém que significa tanto para mim? Se amar você demais é exagero, então quero ser exagerado pelo resto da vida. ❤️"
+            },
+
+        ];
+
+
+        const canvas =
+            document.getElementById("universo");
+
+        const ctx =
+            canvas.getContext("2d");
+
+        const inicio =
+            document.getElementById("inicio");
+
+        const painelMusica =
+            document.getElementById("painelMusica");
+
+        const assinaturaFinal =
+            document.getElementById("assinaturaFinal");
+
+        const audio =
+            document.getElementById("audio");
+
+        const botaoMusica =
+            document.getElementById("alternarMusica");
+
+        const outraConstelacao =
+            document.getElementById("outraConstelacao");
+
+        const status =
+            document.getElementById("status");
+
+        const capaMusica =
+            document.getElementById("capaMusica");
+
+        const capaArea =
+            document.getElementById("capaArea");
+
+        const tituloMusica =
+            document.getElementById("tituloMusica");
+
+        const artistaMusica =
+            document.getElementById("artistaMusica");
+
+        const fraseMusica =
+            document.getElementById("fraseMusica");
+
+        const reduzirMovimento =
+            matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+        let largura;
+        let altura;
+        let escala;
+
+        let estrelas = [];
+        let poeira = [];
+        let pontos = [];
+
+        let iniciou = false;
+        let inicioTempo = 0;
+
+        let indiceAtual = -1;
+
+        let mouse = {
+            x: 0,
+            y: 0
+        };
+
+
+        const aleatorio = (a, b) =>
+            Math.random() * (b - a) + a;
+
+
+        const limitar = (n, a, b) =>
+            Math.max(a, Math.min(n, b));
+
+
+        function sortearIndice() {
+
+            if (galaxiaMusical.length <= 1) {
+                return 0;
+            }
+
+            let novoIndice;
+
+            do {
+
+                novoIndice =
+                    Math.floor(
+                        Math.random() *
+                        galaxiaMusical.length
+                    );
+
+            } while (novoIndice === indiceAtual);
+
+            return novoIndice;
+        }
+
+
+        function carregarMusica(indice) {
+
+            indiceAtual = indice;
+
+            const musica =
+                galaxiaMusical[indice];
+
+
+            tituloMusica.textContent =
+                musica.titulo;
+
+
+            artistaMusica.textContent =
+                musica.artista;
+
+
+            fraseMusica.textContent =
+                `“${musica.frase}”`;
+
+
+            capaArea.classList.remove("tem-capa");
+
+            capaMusica.removeAttribute("src");
+
+            capaMusica.alt =
+                `Capa da música ${musica.titulo}`;
+
+
+            capaMusica.onload = () => {
+
+                capaArea.classList.add("tem-capa");
+
+            };
+
+
+            capaMusica.onerror = () => {
+
+                capaArea.classList.remove("tem-capa");
+
+            };
+
+
+            capaMusica.src =
+                musica.capa;
+
+
+            audio.pause();
+
+            audio.src =
+                musica.audio;
+
+            audio.load();
+
+
+            status.textContent =
+                `${musica.titulo} — ${musica.artista}`;
+
+        }
+
+
+        async function tocarMusica() {
+
+            try {
+
+                await audio.play();
+
+                atualizarBotao();
+
+                status.textContent =
+                    "Nossa trilha sonora está tocando ♡";
+
+            }
+
+            catch {
+
+                atualizarBotao();
+
+                status.textContent =
+                    "Não consegui tocar o áudio. Confira se o arquivo está na pasta correta.";
+
+            }
+
+        }
+
+
+        function atualizarBotao() {
+
+            const tocando =
+                !audio.paused;
+
+
+            botaoMusica.textContent =
+                tocando
+                    ? "❚❚ Pausar música"
+                    : "♫ Continuar música";
+
+
+            botaoMusica.setAttribute(
+                "aria-pressed",
+                String(tocando)
+            );
+
+        }
+
+
+        function redimensionar() {
+
+            largura =
+                innerWidth;
+
+            altura =
+                innerHeight;
+
+
+            escala =
+                Math.min(
+                    devicePixelRatio || 1,
+                    2
+                );
+
+
+            canvas.width =
+                Math.round(
+                    largura * escala
+                );
+
+
+            canvas.height =
+                Math.round(
+                    altura * escala
+                );
+
+
+            ctx.setTransform(
+                escala,
+                0,
+                0,
+                escala,
+                0,
+                0
+            );
+
+
+            estrelas =
+                Array.from(
+                    {
+                        length:
+                            Math.min(
+                                330,
+                                Math.floor(
+                                    largura *
+                                    altura /
+                                    2800
+                                )
+                            )
+                    },
+
+                    () => ({
+
+                        x:
+                            Math.random() *
+                            largura,
+
+                        y:
+                            Math.random() *
+                            altura,
+
+                        r:
+                            aleatorio(
+                                .35,
+                                1.65
+                            ),
+
+                        fase:
+                            aleatorio(
+                                0,
+                                Math.PI * 2
+                            ),
+
+                        velo:
+                            aleatorio(
+                                .45,
+                                1.7
+                            )
+
+                    })
+                );
+
+
+            poeira =
+                Array.from(
+                    {
+                        length: 230
+                    },
+
+                    (_, i) => ({
+
+                        raio:
+                            Math.sqrt(
+                                i / 230
+                            ) *
+                            Math.min(
+                                largura,
+                                altura
+                            ) *
+                            .59,
+
+                        angulo:
+                            i * 2.39996 +
+                            aleatorio(
+                                -.2,
+                                .2
+                            ),
+
+                        desvio:
+                            aleatorio(
+                                -20,
+                                20
+                            ),
+
+                        tamanho:
+                            aleatorio(
+                                .4,
+                                1.8
+                            ),
+
+                        opacidade:
+                            aleatorio(
+                                .1,
+                                .65
+                            ),
+
+                        cor:
+                            i % 3
+
+                    })
+                );
+
+
+            pontos =
+                Array.from(
+                    {
+                        length: 30
+                    },
+
+                    (_, i) => {
+
+                        const t =
+                            (i / 30) *
+                            Math.PI *
+                            2;
+
+
+                        return {
+
+                            x:
+                                16 *
+                                Math.sin(t) ** 3,
+
+                            y:
+                                -(
+                                    13 * Math.cos(t)
+                                    - 5 * Math.cos(2 * t)
+                                    - 2 * Math.cos(3 * t)
+                                    - Math.cos(4 * t)
+                                ),
+
+                            tamanho:
+                                i % 5 === 0
+                                    ? 3.2
+                                    : aleatorio(
+                                        1.8,
+                                        2.7
+                                    )
+
+                        };
+
+                    }
+                );
+
+        }
+
+
+        function desenhar(tempo) {
+
+            const t =
+                reduzirMovimento
+                    ? 0
+                    : tempo * .001;
+
+
+            const fundo =
+                ctx.createRadialGradient(
+                    largura * .5,
+                    altura * .43,
+                    0,
+
+                    largura * .5,
+                    altura * .43,
+
+                    Math.max(
+                        largura,
+                        altura
+                    ) * .78
+                );
+
+
+            fundo.addColorStop(
+                0,
+                "#22113d"
+            );
+
+            fundo.addColorStop(
+                .47,
+                "#100b28"
+            );
+
+            fundo.addColorStop(
+                1,
+                "#050612"
+            );
+
+
+            ctx.fillStyle =
+                fundo;
+
+
+            ctx.fillRect(
+                0,
+                0,
+                largura,
+                altura
+            );
+
+
+            for (
+                const [x, y, r, cor]
+                of [
+
+                    [
+                        .30,
+                        .40,
+                        .43,
+                        "145,67,203"
+                    ],
+
+                    [
+                        .68,
+                        .51,
+                        .38,
+                        "200,75,151"
+                    ],
+
+                    [
+                        .52,
+                        .27,
+                        .32,
+                        "65,89,189"
+                    ]
+
+                ]
+            ) {
+
+                const g =
+                    ctx.createRadialGradient(
+
+                        largura * x,
+                        altura * y,
+                        0,
+
+                        largura * x,
+                        altura * y,
+
+                        Math.min(
+                            largura,
+                            altura
+                        ) * r
+
+                    );
+
+
+                g.addColorStop(
+                    0,
+                    `rgba(${cor},.15)`
+                );
+
+
+                g.addColorStop(
+                    1,
+                    `rgba(${cor},0)`
+                );
+
+
+                ctx.fillStyle =
+                    g;
+
+
+                ctx.fillRect(
+                    0,
+                    0,
+                    largura,
+                    altura
+                );
+
+            }
+
+
+            for (const e of estrelas) {
+
+                const brilho =
+                    .3 +
+                    (
+                        .5 +
+                        .5 *
+                        Math.sin(
+                            t *
+                            e.velo *
+                            2 +
+                            e.fase
+                        )
+                    ) *
+                    .62;
+
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+
+                    e.x +
+                    mouse.x *
+                    e.r *
+                    .7,
+
+                    e.y +
+                    mouse.y *
+                    e.r *
+                    .7,
+
+                    e.r,
+
+                    0,
+
+                    Math.PI * 2
+
+                );
+
+
+                ctx.fillStyle =
+                    `rgba(245,235,255,${brilho})`;
+
+
+                ctx.fill();
+
+            }
+
+
+            ctx.save();
+
+            ctx.globalCompositeOperation =
+                "screen";
+
+
+            for (const p of poeira) {
+
+                const a =
+                    p.angulo +
+                    p.raio * .009 +
+                    t * .014;
+
+
+                const x =
+                    largura * .5 +
+                    Math.cos(a) *
+                    p.raio +
+                    p.desvio;
+
+
+                const y =
+                    altura * .43 +
+                    Math.sin(a) *
+                    p.raio *
+                    .42 +
+                    p.desvio *
+                    .4;
+
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+                    x,
+                    y,
+                    p.tamanho,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fillStyle =
+                    p.cor === 0
+
+                        ? `rgba(241,154,244,${p.opacidade})`
+
+                        : p.cor === 1
+
+                            ? `rgba(129,153,255,${p.opacidade})`
+
+                            : `rgba(255,224,251,${p.opacidade})`;
+
+
+                ctx.fill();
+
+            }
+
+
+            ctx.restore();
+
+
+            if (iniciou) {
+
+                desenharConstelacao(
+                    tempo
+                );
+
+            }
+
+
+            requestAnimationFrame(
+                desenhar
+            );
+
+        }
+
+
+        function desenharConstelacao(tempo) {
+
+            const andamento =
+                reduzirMovimento
+                    ? 1
+                    : limitar(
+                        (
+                            tempo -
+                            inicioTempo
+                        ) /
+                        3000,
+                        0,
+                        1
+                    );
+
+
+            const quantas =
+                andamento *
+                pontos.length;
+
+
+            const limiteVertical =
+                altura < 700
+                    ? altura / 48
+                    : altura / 43;
+
+
+            const s =
+                Math.min(
+                    largura / 43,
+                    limiteVertical
+                );
+
+
+            const cx =
+                largura / 2;
+
+
+            const cy =
+                altura *
+                (
+                    largura < 620
+                        ? .39
+                        : .40
+                );
+
+
+            const converter =
+                p => ({
+
+                    x:
+                        cx +
+                        p.x * s,
+
+                    y:
+                        cy +
+                        p.y * s
+
+                });
+
+
+            ctx.save();
+
+
+            ctx.lineWidth =
+                1.4;
+
+
+            ctx.shadowColor =
+                "#ffb8ed";
+
+
+            ctx.shadowBlur =
+                15;
+
+
+            for (
+                let i = 0;
+                i < Math.floor(quantas);
+                i++
+            ) {
+
+                const a =
+                    converter(
+                        pontos[i]
+                    );
+
+
+                const b =
+                    converter(
+                        pontos[
+                            (i + 1) %
+                            pontos.length
+                        ]
+                    );
+
+
+                if (
+                    i + 1 >= quantas &&
+                    andamento < 1
+                ) {
+                    continue;
+                }
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    a.x,
+                    a.y
+                );
+
+
+                ctx.lineTo(
+                    b.x,
+                    b.y
+                );
+
+
+                ctx.strokeStyle =
+                    `rgba(
+                        255,
+                        183,
+                        236,
+                        ${
+                            .45 +
+                            .18 *
+                            Math.sin(
+                                tempo *
+                                .002
+                            )
+                        }
+                    )`;
+
+
+                ctx.stroke();
+
+            }
+
+
+            for (
+                let i = 0;
+                i < Math.ceil(quantas);
+                i++
+            ) {
+
+                const p =
+                    converter(
+                        pontos[i]
+                    );
+
+
+                const pulso =
+                    reduzirMovimento
+
+                        ? 1
+
+                        : 1 +
+                        Math.sin(
+                            tempo *
+                            .003 +
+                            i
+                        ) *
+                        .18;
+
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+
+                    p.x,
+                    p.y,
+
+                    pontos[i].tamanho *
+                    pulso,
+
+                    0,
+
+                    Math.PI * 2
+
+                );
+
+
+                ctx.fillStyle =
+                    "#fff5ff";
+
+
+                ctx.shadowBlur =
+                    20;
+
+
+                ctx.fill();
+
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+
+                    p.x,
+                    p.y,
+
+                    pontos[i].tamanho *
+                    3.1,
+
+                    0,
+
+                    Math.PI * 2
+
+                );
+
+
+                ctx.fillStyle =
+                    "rgba(255,162,229,.13)";
+
+
+                ctx.fill();
+
+            }
+
+
+            ctx.restore();
+
+
+            if (
+                andamento >= 1 &&
+                !painelMusica.classList.contains(
+                    "apareceu"
+                )
+            ) {
+
+                painelMusica.classList.add(
+                    "apareceu"
+                );
+
+
+                assinaturaFinal.classList.add(
+                    "apareceu"
+                );
+
+            }
+
+        }
+
+
+        document
+            .getElementById("comecar")
+            .addEventListener(
+                "click",
+                async () => {
+
+                    inicio.classList.add(
+                        "sumiu"
+                    );
+
+
+                    inicio.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+
+                    const indice =
+                        sortearIndice();
+
+
+                    carregarMusica(
+                        indice
+                    );
+
+
+                    iniciou =
+                        true;
+
+
+                    inicioTempo =
+                        performance.now();
+
+
+                    await tocarMusica();
+
+                }
+            );
+
+
+        botaoMusica
+            .addEventListener(
+                "click",
+                async () => {
+
+                    if (!audio.paused) {
+
+                        audio.pause();
+
+                        atualizarBotao();
+
+                        status.textContent =
+                            "Música pausada.";
+
+                        return;
+
+                    }
+
+
+                    await tocarMusica();
+
+                }
+            );
+
+
+        outraConstelacao
+            .addEventListener(
+                "click",
+                async () => {
+
+                    painelMusica
+                        .classList
+                        .remove(
+                            "apareceu"
+                        );
+
+
+                    assinaturaFinal
+                        .classList
+                        .remove(
+                            "apareceu"
+                        );
+
+
+                    const indice =
+                        sortearIndice();
+
+
+                    carregarMusica(
+                        indice
+                    );
+
+
+                    iniciou =
+                        true;
+
+
+                    inicioTempo =
+                        performance.now();
+
+
+                    await tocarMusica();
+
+                }
+            );
+
+
+        audio.addEventListener(
+            "play",
+            atualizarBotao
+        );
+
+
+        audio.addEventListener(
+            "pause",
+            atualizarBotao
+        );
+
+
+        audio.addEventListener(
+            "ended",
+            atualizarBotao
+        );
+
+
+        audio.addEventListener(
+            "error",
+            () => {
+
+                status.textContent =
+                    "Arquivo de áudio não encontrado. Confira o caminho definido no JavaScript.";
+
+            }
+        );
+
+
+        addEventListener(
+            "pointermove",
+            e => {
+
+                mouse.x =
+                    (
+                        e.clientX /
+                        innerWidth -
+                        .5
+                    ) *
+                    5;
+
+
+                mouse.y =
+                    (
+                        e.clientY /
+                        innerHeight -
+                        .5
+                    ) *
+                    5;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        addEventListener(
+            "resize",
+            redimensionar
+        );
+
+
+        redimensionar();
+
+        requestAnimationFrame(
+            desenhar
+        );
+
+    </script>
+
+</body>
+
+</html>
